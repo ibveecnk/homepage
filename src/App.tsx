@@ -8,7 +8,7 @@ function App() {
     return (
         <div className={styles.App}>
             <div className={styles.title}>Iven Beck</div>
-            <div className={styles.welcome}>Welcome to my site.</div>
+            <div className={styles.welcome}>Hi! 👋🏽</div>
             <div className={styles.logos}>
                 <a href="https://github.com/ibveecnk" className={styles.logo}>
                     <GithubLogo />
@@ -17,9 +17,11 @@ function App() {
                     <LinkedInLogo />
                 </a>
             </div>
+            <div className={styles.footer}>
+                <div className={styles.footerText}>©{new Date().getFullYear()} Iven Beck</div>
+            </div>
         </div>
     );
 }
-1;
 
 export default App;
