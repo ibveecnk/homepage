@@ -25,6 +25,8 @@ class Blob {
     }
 }
 
+const NUM_BLOBS = 25;
+
 function Background() {
     // draw blobs that grow and merge together to form the background of the page with a 2d canvas
 
@@ -54,7 +56,7 @@ function Background() {
         const width = (canvas.width = window.innerWidth);
         const height = (canvas.height = window.innerHeight);
 
-        const blobs: Blob[] = Array.from({ length: 25 }).map(() => {
+        const blobs: Blob[] = Array.from({ length: NUM_BLOBS }).map(() => {
             const x = Math.random() * width;
             const y = Math.random() * height;
             const r = Math.random() * 20 + 10;
@@ -62,26 +64,26 @@ function Background() {
             return new Blob(x, y, r, color);
         });
 
-        let terminate = false;
+        let terminate = 0;
 
         function animate() {
             if (!ctx) return;
             ctx.fillStyle = invertedBackgroundColor;
             ctx.fillRect(0, 0, width, height);
+            terminate = 0;
 
             blobs.forEach((blob) => {
                 if (blob.r * 2 > width || blob.r * 2 > height) {
-                    console.log('terminate');
-                    terminate = true;
+                    terminate++;
                 }
                 blob.draw(ctx);
                 blob.grow();
             });
 
-            if (!terminate) requestAnimationFrame(animate);
+            if (terminate < NUM_BLOBS) requestAnimationFrame(animate);
         }
 
-        if (!terminate) animate();
+        if (terminate < NUM_BLOBS) animate();
     }, []);
 
     return (
