@@ -73,7 +73,7 @@ function Background() {
             terminate = 0;
 
             blobs.forEach((blob) => {
-                if (blob.r * 2 > width || blob.r * 2 > height) {
+                if (blob.r > width || blob.r > height) {
                     terminate++;
                 }
                 blob.draw(ctx);
