@@ -1,5 +1,8 @@
 import React from 'react';
 
+const fullSize = Math.min(window.innerWidth, window.innerHeight);
+const growSpeed = fullSize / 100;
+
 class Blob {
     x: number;
     y: number;
@@ -21,7 +24,7 @@ class Blob {
     }
 
     grow() {
-        this.r += 5;
+        this.r += growSpeed;
     }
 }
 
@@ -64,6 +67,7 @@ function Background() {
             return new Blob(x, y, r, color);
         });
 
+        let start: number, end: number;
         let terminate = 0;
 
         function animate() {
@@ -80,10 +84,20 @@ function Background() {
                 blob.grow();
             });
 
-            if (terminate < NUM_BLOBS) requestAnimationFrame(animate);
+            if (terminate < NUM_BLOBS) {
+                requestAnimationFrame(animate);
+            } else {
+                // Done animating
+                end = performance.now();
+                console.log(`Animation took ${end - start}ms`);
+            }
         }
 
-        if (terminate < NUM_BLOBS) animate();
+        start = performance.now();
+
+        if (terminate < NUM_BLOBS) {
+            animate();
+        }
     }, []);
 
     return (
